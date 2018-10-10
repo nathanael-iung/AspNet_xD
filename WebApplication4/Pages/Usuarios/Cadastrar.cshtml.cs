@@ -12,7 +12,8 @@ namespace WebApplication4.Pages.Usuarios
     {
         [BindProperty(SupportsGet = true)]
         public Usuario usuario { get; set; }
-        public void OnGet(string nome, string senha)
+        
+        public void OnGet()
         {
             if (usuario == null)
             {

@@ -3,15 +3,39 @@
 @{
     ViewData["Title"] = "Cadastrar";
 }
+<div class="container">
+    <h2>Cadastrar</h2>
 
-<h2>Cadastrar</h2>
-
-<form>
-    <div class="form-group">
-        <label for="usuario.Nome">Nome</label>
-        <input type="text" name="usuario.Nome" value="@Model.usuario.Nome" class="form-control" placeholder="Nome" />
-        <label for="usuario.Senha">Senha</label>
-        <input type="password" name="usuario.Senha" class="form-control" placeholder="Senha" />
-        <button class="btn btn-primary">Enviar</button>
-    </div>
-</form>
+    <form onsubmit="return valida()">
+        <div class="form-group">
+            <label for="usuario.Nome">Nome</label>
+            <input type="text" name="usuario.Nome" value="@Model.usuario.Nome" class="form-control" placeholder="Nome" />
+            <label for="usuario.Email">Email</label>
+            <input type="text" name="usuario.Email" value="@Model.usuario.Email" class="form-control" placeholder="Email" />
+            <label for="usuario.Cpf">Cpf</label>
+            <input type="text" name="usuario.Cpf" value="@Model.usuario.Cpf" class="form-control" placeholder="Cpf" />
+            <label for="usuario.DataNascimento">Data de Nascimento</label>
+            <input type="date" name="usuario.DataNascimento" value="@Model.usuario.DataNascimento" class="form-control" placeholder="DataNascimento" />
+            <label for="usuario.Senha">Senha</label>
+            <input type="password" id="senha" name="usuario.Senha" class="form-control" placeholder="Senha" />
+            <label>Confirmação</label>
+            <input type="password" id="confirmacao" class="form-control" placeholder="Senha" />
+            <button class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+</div>
+<script>
+    function valida() {
+        let senha = document.getElementById("senha");
+        let confirmacao = document.getElementById("confirmacao");
+        if (senha.value.length < 4) {
+            alert("A Senha deve ter pelo menos 4 caracteres");
+            return false;
+        }
+        if (senha.value != confirmacao.value) {
+            alert("A Senha e a confirmacao devem ser iguais");
+            return false;
+        }
+        return true;
+    }
+</script>
