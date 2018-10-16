@@ -31,7 +31,17 @@
             </div>
             <div class="collapse" id="collapseForm">
                 <label>Endereço</label>
-                <input type="text" name="logradouro" id="logradouro" class="form-control"  />
+                <input type="text" name="usuario.Logradouro" id="logradouro" class="form-control" />
+                <label>Numero</label>
+                <input type="text" name="usuario.Numero" class="form-control" />
+                <label>Complemento</label>
+                <input type="text" name="usuario.Complemento" class="form-control" />
+                <label>Bairro</label>
+                <input type="text" name="usuario.Bairro" id="bairro" class="form-control" />
+                <label>Cidade</label>
+                <input type="text" name="usuario.Cidade" id="cidade" class="form-control" />
+                <label>UF</label>
+                <input type="text" name="usuario.Uf" id="uf" class="form-control" />
             </div>
             <hr />
             <button class="btn btn-primary">Enviar</button>
@@ -52,7 +62,10 @@
                     $('#collapseForm').collapse('hide');
                 } else {
                     // preenche os campos do endereço
-                    document.querySelector("#logradouro").value=resp.logradouro;
+                    document.querySelector("#logradouro").value = resp.logradouro;
+                    document.querySelector("#bairro").value = resp.bairro;
+                    document.querySelector("#cidade").value = resp.localidade;
+                    document.querySelector("#uf").value = resp.uf;
                     $('#collapseExample').collapse('hide');
                     $('#collapseForm').collapse('show');
                 }
