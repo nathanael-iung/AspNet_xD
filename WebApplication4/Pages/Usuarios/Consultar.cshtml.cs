@@ -9,30 +9,25 @@ using WebApplication4.Models;
 
 namespace WebApplication4.Pages.Usuarios
 {
-    public class CadastrarModel : PageModel
+    public class ConsultarModel : PageModel
     {
         WebApplication4Context _context;
-        public CadastrarModel(WebApplication4Context context)
+        public ConsultarModel(WebApplication4Context context)
         {
             _context = context;
         }
-        [BindProperty(SupportsGet = true)]
-        public Usuario usuario { get; set; }
-        
         public void OnGet()
         {
-            if (usuario == null)
-            {
-                usuario = new Usuario();
-            }
+
         }
         [HttpPost]
-        public void OnPost()
+        public void OnPost(string cpf)
         {
-            if (ModelState.IsValid)
+            Usuario u = _context.Usuario
+                .Where(u1 => u1.Cpf == cpf).FirstOrDefault();
+            if (u != null)
             {
-                _context.Usuario.Add(usuario);
-                _context.SaveChanges();
+                ViewData["usuario"] = u;
             }
         }
     }

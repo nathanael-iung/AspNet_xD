@@ -6,23 +6,41 @@
 <div class="container">
     <h2>Cadastrar</h2>
 
-    <form onsubmit="return valida()">
+    <form onsubmit="return valida()" method="post">
         <div class="form-group">
-            <label for="usuario.Nome">Nome</label>
-            <input type="text" name="usuario.Nome" value="@Model.usuario.Nome" class="form-control" placeholder="Nome" />
-            <label for="usuario.Email">Email</label>
-            <input type="text" name="usuario.Email" value="@Model.usuario.Email" class="form-control" placeholder="Email" />
-            <label for="usuario.Cpf">Cpf</label>
-            <input type="text" name="usuario.Cpf" value="@Model.usuario.Cpf" class="form-control" placeholder="Cpf" />
-            <label for="usuario.DataNascimento">Data de Nascimento</label>
-            <input type="date" name="usuario.DataNascimento" value="@Model.usuario.DataNascimento" class="form-control" placeholder="DataNascimento" />
-            <label for="usuario.Senha">Senha</label>
-            <input type="password" id="senha" name="usuario.Senha" class="form-control" placeholder="Senha" />
-            <label>Confirmação</label>
-            <input type="password" id="confirmacao" class="form-control" placeholder="Senha" />
+            <div class="form-group">
+                <label asp-for="usuario.Nome">Nome</label>
+                <input type="text" asp-for="usuario.Nome" class="form-control" placeholder="Nome" />
+                <span asp-validation-for="usuario.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="usuario.Email">Email</label>
+                <input type="text" asp-for="usuario.Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="usuario.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="usuario.Cpf">Cpf</label>
+                <input type="text" name="usuario.Cpf" value="@Model.usuario.Cpf" class="form-control" placeholder="Cpf" />
+            </div>
+            <div class="form-group">
+                <label asp-for="usuario.DataNascimento">Data de Nascimento</label>
+                <input type="date" asp-for="usuario.DataNascimento" class="form-control" placeholder="DataNascimento" />
+                <span asp-validation-for="usuario.DataNascimento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="usuario.Senha">Senha</label>
+                <input type="password" id="senha" name="usuario.Senha" class="form-control" placeholder="Senha" />
+            </div>
+            <div class="form-group">
+                <label>Confirmação</label>
+                <input type="password" id="confirmacao" class="form-control" placeholder="Senha" />
+            </div>
             <hr />
-            <label>CEP</label>
-            <input type="number" name="Cep" id="Cep" class="form-control" placeholder="CEP" />
+            <div class="form-group">
+                <label asp-for="usuario.Cep">CEP</label>
+                <input type="text" asp-for="usuario.Cep" id="Cep" class="form-control" placeholder="CEP" />
+                <span asp-validation-for="usuario.Cep" class="text-danger"></span>
+            </div>
             <button class="btn" type="button" onclick="buscaEndereco()">Buscar</button>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="ender">
@@ -46,14 +64,16 @@
             <hr />
             <button class="btn btn-primary">Enviar</button>
         </div>
-    </form>
+</form>
     <button type="button" onclick="$('#meudiv').load('/teste.html')">buscar</button>
     <div id="meudiv"></div>
 </div>
 <script>
     function buscaEndereco() {
         let cep = document.querySelector("#Cep");
-        $.getJSON("https://viacep.com.br/ws/" + cep.value + "/json/",
+        let value = cep.value;
+        value = value.replace("-", "");
+        $.getJSON("https://viacep.com.br/ws/" + value + "/json/",
             function (resp) {
                 if (resp.erro) {
                     // cep não encontrado
