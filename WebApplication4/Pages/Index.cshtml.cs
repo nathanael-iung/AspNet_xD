@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication4.Pages
 {
@@ -11,7 +12,7 @@ namespace WebApplication4.Pages
     {
         public void OnGet()
         {
-
+            ViewData["usuarioNome"] = HttpContext.Session.GetString("usuarioNome");
         }
     }
 }

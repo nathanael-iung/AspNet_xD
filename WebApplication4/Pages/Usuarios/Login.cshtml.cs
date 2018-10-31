@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication4.Pages.Usuarios
 {
@@ -31,6 +32,8 @@ namespace WebApplication4.Pages.Usuarios
                 Usuario usuario = _context.Usuario.Where(u => u.Email == dados.email && u.Senha == dados.senha).FirstOrDefault();
                 if (usuario != null)
                 {
+                    HttpContext.Session.SetInt32("usuarioId", usuario.UsuarioId);
+                    HttpContext.Session.SetString("usuarioNome", usuario.Nome);
                     return RedirectToPage("./Index");
                 }
                 ModelState.AddModelError("", "Email ou senha inválidos");

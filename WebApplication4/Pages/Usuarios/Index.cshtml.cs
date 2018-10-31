@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication4.Pages.Usuarios
 {
@@ -24,6 +25,7 @@ namespace WebApplication4.Pages.Usuarios
         public async Task OnGetAsync()
         {
             Usuario = await _context.Usuario.ToListAsync();
+            ViewData["usuarioNome"] = HttpContext.Session.GetString("usuarioNome");
         }
     }
 }

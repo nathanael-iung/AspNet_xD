@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using WebApplication4.Models;
+using WebApplication4.Util;
 
 namespace WebApplication4.Pages.Usuarios
 {
@@ -27,14 +28,24 @@ namespace WebApplication4.Pages.Usuarios
             }
         }
         [HttpPost]
-        public void OnPost()
+        public IActionResult OnPost()
         {
-            if (ModelState.IsValid)
+            if (!DigitosUtil.IsCpf(usuario.Cpf))
+            {
+                ModelState.AddModelError("usuario.Cpf", "CPF inválido");
+            }
+            Usuario us = _context.Usuario.Where(u => u.Email == usuario.Email).FirstOrDefault();
+            if (us != null)
+            {
+                ModelState.AddModelError("", "Email já cadastrado");
+            }
+            if (ModelState.ErrorCount == 0)
             {
                 _context.Usuario.Add(usuario);
                 _context.SaveChanges();
-                RedirectToPage("./Index");
+                return RedirectToPage("./Index");
             }
+            return Page();
         }
     }
 }

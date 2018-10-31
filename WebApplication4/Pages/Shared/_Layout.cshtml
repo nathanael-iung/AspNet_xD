@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,8 +18,8 @@
     </environment>
 </head>
 <body>
-    @Html.Partial("Menu", null, null)
-
+    <partial name="Menu" />
+    <div class="card card-body">@Context.Session.GetString("usuarioNome")</div>
     <div class="container-fluid body-content">
         @RenderBody()
     </div>
