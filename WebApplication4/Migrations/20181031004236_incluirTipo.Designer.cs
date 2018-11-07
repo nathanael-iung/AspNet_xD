@@ -3,47 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication4.Models;
 
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(WebApplication4Context))]
-    partial class WebApplication4ContextModelSnapshot : ModelSnapshot
+    [Migration("20181031004236_incluirTipo")]
+    partial class incluirTipo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("WebApplication4.Data.Mesa", b =>
-                {
-                    b.Property<int>("MesaId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome");
-
-                    b.HasKey("MesaId");
-
-                    b.ToTable("Mesas");
-                });
-
-            modelBuilder.Entity("WebApplication4.Data.MesaUsuario", b =>
-                {
-                    b.Property<int>("MesaId");
-
-                    b.Property<int>("UsuarioId");
-
-                    b.HasKey("MesaId", "UsuarioId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("MesasUsuarios");
-                });
 
             modelBuilder.Entity("WebApplication4.Data.Usuario", b =>
                 {
@@ -82,19 +58,6 @@ namespace WebApplication4.Migrations
                     b.HasKey("UsuarioId");
 
                     b.ToTable("Usuario");
-                });
-
-            modelBuilder.Entity("WebApplication4.Data.MesaUsuario", b =>
-                {
-                    b.HasOne("WebApplication4.Data.Mesa", "Mesa")
-                        .WithMany("MesasUsuarios")
-                        .HasForeignKey("MesaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WebApplication4.Data.Usuario", "Usuario")
-                        .WithMany("MesasUsuarios")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

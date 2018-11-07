@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Models;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using WebApplication4.Business;
 
 namespace WebApplication4
 {
@@ -37,6 +38,7 @@ namespace WebApplication4
 
             services.AddDbContext<WebApplication4Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WebApplication4Context")));
+            services.AddScoped<IJogoService, JogoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +57,11 @@ namespace WebApplication4
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default",
+                    "mvc/{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
